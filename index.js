@@ -1,5 +1,6 @@
 // const { clientId, guildId, token, publicKey } = require('./config.json');
 require("dotenv").config();
+const express = require('express');
 
 const { Client, GatewayIntentBits } = require("discord.js");
 const cleverbot = require("cleverbot-free");
@@ -10,6 +11,8 @@ const PUBLIC_KEY = process.env.PUBLIC_KEY; //|| 'not set'
 const GUILD_ID = process.env.GUILD_ID;
 
 let coversation = [];
+
+const app = express();
 
 const client = new Client({
   intents: [
@@ -47,3 +50,11 @@ client.on("interactionCreate", (inter) => {
 });
 
 client.login(TOKEN);
+
+app.get('/',(_req,res)=>{
+  res.status(200).json('Bot now online');
+})
+
+app.listen(3000,()=>{
+  console.log('Port 3000');
+})
